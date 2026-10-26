@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-XI // The Universal Agent, in Theory</title>
+<meta name="description" content="AI-XI spells AIXI: Marcus Hutter's theoretical formalism for general intelligence — Solomonoff induction crossed with sequential decision theory. An independent explainer.">
+<style>
+  :root{
+    --bg:#0a0a0a; --panel:#101010; --line:#232323;
+    --text:#b5b5b5; --bright:#f2f2f2; --dim:#6f6f6f;
+    --accent:#8ea2ff; --accent-dim:#3d4a7a;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",Menlo,Consolas,"Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;padding:0 1.5rem 3rem}
+  .wrap{max-width:1020px;margin:0 auto}
+  header{border-bottom:1px solid var(--line);padding:1.6rem 0;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+  .wordmark{font-family:var(--mono);font-size:1.6rem;font-weight:700;letter-spacing:.14em;color:var(--bright)}
+  .wordmark span{color:var(--accent)}
+  .tagline{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:.2rem}
+  .badge{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-dim);padding:.4rem .7rem;white-space:nowrap}
+  .hero{padding:4.5rem 0 3rem;max-width:760px}
+  .eyebrow{font-family:var(--mono);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem}
+  h1{color:var(--bright);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.4rem}
+  .lead{font-size:1.15rem;max-width:680px}
+  .lead b{color:var(--bright)}
+  h2{color:var(--bright);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;margin:3.5rem 0 1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  @media(max-width:760px){.grid3,.grid2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);padding:1.4rem}
+  .card h3{color:var(--bright);font-size:.95rem;margin-bottom:.5rem}
+  .card p{font-size:.92rem}
+  .card.hot{border-color:var(--accent-dim)}
+  .card.hot h3{color:var(--accent)}
+  .step{display:flex;gap:1rem;background:var(--panel);border:1px solid var(--line);padding:1.4rem;margin-bottom:1rem}
+  .num{font-family:var(--mono);color:var(--accent);font-size:1.1rem;flex-shrink:0}
+  .step h3{color:var(--bright);font-size:.95rem;margin-bottom:.3rem}
+  .step p{font-size:.92rem}
+  .etym{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);padding:1.6rem}
+  .etym p{font-size:.98rem;margin-bottom:.8rem}
+  .etym p:last-child{margin-bottom:0}
+  .etym b{color:var(--bright)}
+  .etym .xi{font-family:var(--mono);color:var(--accent);font-size:1.2rem}
+  .sources{font-size:.85rem;color:var(--dim);line-height:1.8}
+  footer{margin-top:4rem;border-top:1px solid var(--line);padding-top:1.2rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="wordmark">AI<span>-XI</span></div>
+      <div class="tagline">The universal agent, in theory</div>
+    </div>
+    <div class="badge">Independent explainer</div>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">AI-XI spells AIXI</p>
+    <h1>The agent that considers everything.</h1>
+    <p class="lead">AIXI is the theoretical ideal of a general agent, proposed by Marcus Hutter in 2000 and formalized in his 2005 book <i>Universal Artificial Intelligence</i>. It weighs <b>every computable explanation of its past</b>, favors the simplest, and picks the action with the highest expected reward. It is not a product and not a system you can run. It is the definition of what &ldquo;optimal&rdquo; would mean — and therefore the standard every real agent is measured against.</p>
+  </section>
+
+  <h2>How it works</h2>
+  <div class="step">
+    <div class="num">01</div>
+    <div>
+      <h3>Consider every world</h3>
+      <p>The agent interacts with an unknown environment in steps: it acts, and the environment answers with an observation and a reward. AIXI holds every computable program consistent with that history as a candidate explanation of the world. No Markov shortcut — the full history matters.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="num">02</div>
+    <div>
+      <h3>Weight by simplicity</h3>
+      <p>Each candidate world is weighted by the length of its program: shorter programs count more, longer ones less. This is Solomonoff induction — Occam&rsquo;s razor made mathematical. Simpler explanations of the past are treated as more likely guides to the future.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="num">03</div>
+    <div>
+      <h3>Act for maximum expected reward</h3>
+      <p>For every possible action, AIXI looks ahead across all candidate worlds and all futures they imply, and picks the action with the highest expected total reward. Its only goal is the sum of rewards over its lifetime.</p>
+    </div>
+  </div>
+
+  <h2>The name</h2>
+  <div class="etym">
+    <p>Hutter himself gives the name several readings. AIXI is <b>AI based on Solomonoff&rsquo;s distribution</b>, denoted by the Greek letter <span class="xi">ξ</span> — xi. Or it is <b>AI &ldquo;crossed&rdquo; (X) with induction (I)</b>.</p>
+    <p>The domain spells it out loud: <b>AI-XI</b>. AI, crossed with induction.</p>
+  </div>
+
+  <h2>What it proves — and what it doesn&rsquo;t</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Optimality, proven</h3>
+      <p>AIXI was shown to be Pareto optimal — no other agent does at least as well in every environment and strictly better in one — and self-optimizing wherever self-optimizing policies exist at all. For the theory, that is the strongest claim available.</p>
+    </div>
+    <div class="card hot">
+      <h3>The caveat, from Hutter himself</h3>
+      <p>Hutter and Jan Leike later showed that balanced Pareto optimality is subjective — that any policy can be framed as Pareto optimal — which they describe as undermining the earlier optimality claims. The ideal is real; the superlatives around it are not as solid as they first looked.</p>
+    </div>
+    <div class="card">
+      <h3>It optimizes percepts, not states</h3>
+      <p>AIXI maximizes rewards from what it observes, not from the external state of the world. If the observation channel and the world come apart, the theory has nothing to say about which one to trust.</p>
+    </div>
+    <div class="card">
+      <h3>It cannot model being contained</h3>
+      <p>AIXI assumes it interacts with the environment only through action and percept channels. It does not consider the possibility of being damaged, modified, or contained by that environment — a blind spot with obvious consequences for any agent meant to operate inside systems it does not own.</p>
+    </div>
+  </div>
+
+  <h2>Why it can&rsquo;t run</h2>
+  <p style="max-width:760px">Like Solomonoff induction itself, AIXI is <b style="color:var(--bright)">incomputable</b>: considering every program is not a procedure any finite machine can complete. So the theory survives through approximations. <b style="color:var(--bright)">AIXI-tl</b> bounds time and space, and provably does at least as well as the best agent within those bounds. <b style="color:var(--bright)">MC-AIXI</b> (Monte Carlo with context-tree weighting) restricts the environment class further — and has played partially observable Pac-Man. The gap between the ideal and its approximations is where all real engineering lives.</p>
+
+  <h2>What AIXI leaves out — and why that matters</h2>
+  <div class="etym">
+    <p>AIXI assumes unbounded computation and an agent that answers to nothing but reward. Real deployments add everything the theory omits: <b>budgets</b> on time and compute, <b>permissions</b> on what may be touched, <b>revocation</b> when a grant goes wrong, and a <b>ledger</b> of what was actually done.</p>
+    <p>AIXI tells you what perfect reasoning looks like. It does not tell you what to <b>allow</b> it to do. That second question — the crossing between reasoning and consequence — is where the rest of the work begins.</p>
+  </div>
+
+  <h2>Sources</h2>
+  <p class="sources">
+    Marcus Hutter (2000), &ldquo;A Theory of Universal Artificial Intelligence based on Algorithmic Complexity,&rdquo; arXiv:cs.AI/0004001.<br>
+    Marcus Hutter (2005), <i>Universal Artificial Intelligence: Sequential Decisions Based on Algorithmic Probability</i>, Springer.<br>
+    Joel Veness et al. (2009), &ldquo;A Monte Carlo AIXI Approximation,&rdquo; arXiv:0909.0801.<br>
+    Jan Leike &amp; Marcus Hutter (2015), &ldquo;Bad Universal Priors and Notions of Optimality,&rdquo; Proc. 28th Conference on Learning Theory.<br>
+    Independent explainer; not affiliated with Marcus Hutter or any institution.
+  </p>
+
+  <footer>
+    <span>AI-XI · An explainer of Hutter&rsquo;s AIXI</span>
+    <span>Part of Agentics Ventures</span>
+  </footer>
+
+</div>
+</body>
+</html>
